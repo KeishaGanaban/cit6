@@ -40,7 +40,7 @@ public class crud extends AppCompatActivity {
                 String numberTXT = number.getText().toString();
                 String emailTXT = email.getText().toString();
 
-                Boolean checkinsertdata = DB.addprofiledata(nameTXT, occupationTXT, Integer.valueOf(numberTXT), emailTXT);
+                Boolean checkinsertdata = DB.addprofiledata(nameTXT, occupationTXT, numberTXT, emailTXT);
                 if(checkinsertdata==true)
                     Toast.makeText(crud.this, "New Profile Created", Toast.LENGTH_SHORT).show();
                 else
@@ -56,7 +56,7 @@ public class crud extends AppCompatActivity {
                 String numberTXT = number.getText().toString();
                 String emailTXT = email.getText().toString();
 
-                Boolean checkupdatedata = DB.updateprofiledata(nameTXT, occupationTXT, Integer.valueOf(numberTXT), emailTXT);
+                Boolean checkupdatedata = DB.updateprofiledata(nameTXT, occupationTXT, numberTXT, emailTXT);
                 if(checkupdatedata==true)
                     Toast.makeText(crud.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                 else

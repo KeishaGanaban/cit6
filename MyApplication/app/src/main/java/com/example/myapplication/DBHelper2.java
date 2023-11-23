@@ -15,7 +15,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create Table Profiledata(name TEXT primary key, occupation TEXT, number INT, email TEXT)");
+        DB.execSQL("create Table Profiledata(name TEXT primary key, occupation TEXT, number TEXT, email TEXT)");
 
     }
 
@@ -25,7 +25,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
 
     }
 
-    public Boolean addprofiledata(String name, String occupation, Integer number, String email) {
+    public Boolean addprofiledata(String name, String occupation, String number, String email) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
@@ -40,7 +40,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean updateprofiledata(String name, String occupation, Integer number, String email) {
+    public Boolean updateprofiledata(String name, String occupation, String number, String email) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("occupation", occupation);

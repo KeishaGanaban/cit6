@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959669287639",
+    "project_id": "lawyerapp-ffd12",
+    "storage_bucket": "lawyerapp-ffd12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959669287639:android:a0228a0eb9d2346ef4ce92",
+        "android_client_info": {
+          "package_name": "com.example.lawyerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHmafYwXy185QUA6FxKa3YSNPdoLslZIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

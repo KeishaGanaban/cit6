@@ -8,12 +8,17 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -27,11 +32,12 @@ import java.util.Map;
 
 public class signup extends AppCompatActivity {
 
-    TextInputEditText regemail, regpassword, regusername, regnumber;
+    EditText username, password, email, number;
     RadioButton lawyer, client;
+    boolean valid = true;
     Button register;
+    CheckBox aslawyer, asclient;
     FirebaseAuth mAuth;
-    ProgressBar progressbar;
     TextView textView;
     FirebaseFirestore fStore;
 
@@ -51,14 +57,88 @@ public class signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mAuth = FirebaseAuth.getInstance();
-        regusername = findViewById(R.id.regusername);
-        regemail = findViewById(R.id.regemail);
-        regnumber = findViewById(R.id.regnumber);
-        regpassword = findViewById(R.id.regpassword);
+        username = findViewById(R.id.regusername);
+        email = findViewById(R.id.regemail);
+        number = findViewById(R.id.regnumber);
+        password = findViewById(R.id.regpassword);
         register = findViewById(R.id.register);
-        progressbar =findViewById(R.id.progressbar);
         textView = findViewById(R.id.tologin);
         fStore = FirebaseFirestore.getInstance();
+        aslawyer = findViewById(R.id.lawyer);
+        asclient = findViewById(R.id.client);
+
+        asclient.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    aslawyer.setChecked(false);
+                }
+            }
+        });
+
+        aslawyer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    asclient.setChecked(false);
+                }
+            }
+        });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkField(username);
+                checkField(email);
+                checkField(number);
+                checkField(password);
+
+                if(!(aslawyer.isChecked() || asclient.isChecked())){
+                    Toast.makeText(signup.this, "Select account type", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(valid){
+                    mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            DocumentReference df = fStore.collection("Users").document(user.getUid());
+                            Map<String,Object> userInfo = new HashMap<>();
+                            userInfo.put("UserName", username.getText().toString());
+                            userInfo.put("UserEmail", email.getText().toString());
+                            userInfo.put("PhoneNumber", number.getText().toString());
+
+                            if(aslawyer.isChecked()){
+                                userInfo.put("isLawyer", "1");
+                            }
+
+                            if(asclient.isChecked()){
+                                userInfo.put("isClient", "1");
+                            }
+
+                            df.set(userInfo);
+
+                            Toast.makeText(signup.this, "Account Successfully Registered", Toast.LENGTH_SHORT).show();
+                            if(aslawyer.isChecked()){
+                                startActivity(new Intent(getApplicationContext(),lawyerdashboard.class));
+                                finish();
+                            }
+
+                            if(asclient.isChecked()){
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                finish();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(signup.this, "Failed to Create Account", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,67 +149,15 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progressbar.setVisibility(view.VISIBLE);
-                String username, email, number, password;
-                username = String.valueOf(regusername.getText());
-                email = String.valueOf(regemail.getText());
-                number = String.valueOf(regnumber.getText());
-                password = String.valueOf(regpassword.getText());
+    }
 
-                if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(signup.this, "Enter username", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(signup.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(number)) {
-                    Toast.makeText(signup.this, "Enter number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(signup.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressbar.setVisibility(view.GONE);
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    DocumentReference df = fStore.collection("Users").document(user.getUid());
-                                    Map<String,Object> userInfo = new HashMap<>();
-                                    userInfo.put("UserName", regusername.getText().toString());
-                                    userInfo.put("UserEmail", regemail.getText().toString());
-                                    userInfo.put("PhoneNumber", regnumber.getText().toString());
-
-                                    userInfo.put("isUser", "1");
-
-                                    df.set(userInfo);
-
-                                    Toast.makeText(signup.this, "Account Created.",
-                                            Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    finish();
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(signup.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-
-                                }
-                            }
-                        });
-            }
-        });
+    public boolean checkField(EditText textField){
+        if(textField.getText().toString().isEmpty()){
+            textField.setError("Error");
+            valid = false;
+        } else {
+            valid = true;
+        }
+        return valid;
     }
 }

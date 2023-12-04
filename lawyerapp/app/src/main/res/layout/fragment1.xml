@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/lightblue"
     >
 
     <androidx.cardview.widget.CardView
@@ -112,13 +113,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="@android:color/darker_gray"
+        android:background="@color/blue"
         android:paddingStart="40dp"
         android:text="Details"
         android:padding="5dp"
         android:paddingLeft="40dp"
         android:textAlignment="viewStart"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:gravity="start"
         android:textSize="15sp"/>
     
@@ -131,7 +132,7 @@
         android:layout_marginStart="20dp"
         android:padding="5dp"
         android:layout_marginLeft="20dp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/holo_blue_light"
         android:drawablePadding="20dp"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"/>
@@ -155,7 +156,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_blue_light"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"/>
 
@@ -170,7 +171,7 @@
         android:paddingStart="20dp"
         android:paddingLeft="20dp"
         android:text="Contact Number"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/holo_blue_light"
         android:textSize="15sp" />
     <TextView
         android:layout_width="match_parent"
@@ -192,7 +193,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_blue_light"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"/>
 
@@ -205,7 +206,7 @@
         android:layout_marginStart="20dp"
         android:padding="5dp"
         android:layout_marginLeft="20dp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/holo_blue_light"
         android:drawablePadding="20dp"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"/>
@@ -230,7 +231,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_blue_light"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"/>
 

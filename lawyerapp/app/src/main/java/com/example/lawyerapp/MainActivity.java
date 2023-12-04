@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button logout;
-    TextView textView;
     FirebaseUser user;
 
     @Override
@@ -25,16 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         logout = findViewById(R.id.logout);
-        textView = findViewById(R.id.userdetails);
         user = auth.getCurrentUser();
 
         if(user == null) {
             Intent intent = new Intent(getApplicationContext(), login.class);
             startActivity(intent);
             finish();
-        }
-        else {
-            textView.setText(user.getEmail());
         }
 
         logout.setOnClickListener(new View.OnClickListener() {

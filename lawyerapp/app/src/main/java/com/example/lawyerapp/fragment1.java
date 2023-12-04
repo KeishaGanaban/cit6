@@ -52,12 +52,11 @@ public class fragment1 extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.ib_edit_f1:
-                Intent intent = new Intent(getActivity(), EditProfile.class);
-                startActivity(intent);
-                break;
 
+        int id = view.getId();
+        if (id == R.id.ib_edit_f1) {
+            Intent intent = new Intent(getActivity(), EditProfile.class);
+            startActivity(intent);
         }
     }
 
@@ -71,7 +70,7 @@ public class fragment1 extends Fragment implements View.OnClickListener{
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
         reference = firestore.collection("user").document(currentId);
-        
+
         reference.get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

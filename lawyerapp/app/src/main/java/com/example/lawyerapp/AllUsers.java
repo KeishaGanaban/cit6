@@ -1,15 +1,11 @@
 package com.example.lawyerapp;
 
 public class AllUsers {
-    String name;
-    String specs;
-    String office;
-    String number;
-    String email;
-
+    String name, specs, uid, url;
     public AllUsers(){
 
     }
+
     public String getName() {
         return name;
     }
@@ -26,34 +22,21 @@ public class AllUsers {
         this.specs = specs;
     }
 
-    public String getOffcice() {
-        return office;
+    public String getUid() {
+        return uid;
     }
 
-    public void setOffcice(String offcice) {
-        this.office = offcice;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getNumber() {
-        return number;
+    public String getUrl() {
+        return url;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 
-    public void setUid(String currentUserId) {
-    }
-
-    public void setUrl(String toString) {
-    }
 }

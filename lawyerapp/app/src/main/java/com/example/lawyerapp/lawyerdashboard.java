@@ -19,8 +19,8 @@ public class lawyerdashboard extends AppCompatActivity {
 
     FirebaseAuth auth;
     Button logout;
-    TextView textView;
     FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class lawyerdashboard extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         logout = findViewById(R.id.logout);
-        textView = findViewById(R.id.userdetails);
         user = auth.getCurrentUser();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -37,14 +36,6 @@ public class lawyerdashboard extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new Fragment()).commit();
 
-        if(user == null) {
-            Intent intent = new Intent(getApplicationContext(), login.class);
-            startActivity(intent);
-            finish();
-        }
-        else {
-            textView.setText(user.getEmail());
-        }
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,15 +52,16 @@ public class lawyerdashboard extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selected = null;
-            switch(item.getItemId()){
-                case R.id.profile_bottom:
-                    selected = new fragment1();
-                    break;
-                case R.id.settings_bottom:
-                    selected = new fragment2();
-                    break;
 
+            int id = item.getItemId();
+            if(id == R.id.profile_bottom){
+                selected = new fragment1();
+            } else if (id == R.id.settings_bottom) {
+                selected = new fragment2();
+            } else if (id == R.id.message_bottom) {
+                selected = new fragment3();
             }
+
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, selected).commit();
 
             return true;

@@ -75,7 +75,7 @@ public class LawyerProfileCreation extends AppCompatActivity {
         currentUserId = user.getUid();
 
         documentReference = db.collection("user").document(currentUserId);
-        storageReference = FirebaseStorage.getInstance().getReference("Profile image");
+        storageReference = FirebaseStorage.getInstance().getReference("Profile images");
         databaseReference = database.getReference("All Users");
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -101,18 +101,17 @@ public class LawyerProfileCreation extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         try {
+            if (requestCode == PICK_IMAGE || resultCode == RESULT_OK ||
+                    data != null || data.getData() != null){
+                imageUri = data.getData();
 
+                Picasso.get().load(imageUri).into(pfp);
+            }
         }catch (Exception e){
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
-
-        if (requestCode == PICK_IMAGE || resultCode == RESULT_OK ||
-        data != null || data.getData() != null){
-            imageUri = data.getData();
-
-            Picasso.get().load(imageUri).into(pfp);
-        }
     }
+
     private String getFileExt(Uri uri){
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
@@ -152,8 +151,8 @@ public class LawyerProfileCreation extends AppCompatActivity {
                         profile.put("office", office);
                         profile.put("number", number);
                         profile.put("email", email);
-                        profile.put("uid",currentUserId);
                         profile.put("url", downlaodUri.toString());
+                        profile.put("uid", currentUserId);
                         profile.put("Privacy", "Public");
 
                         member.setName(name);

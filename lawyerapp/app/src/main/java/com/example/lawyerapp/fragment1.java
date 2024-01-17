@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 
 public class fragment1 extends Fragment implements View.OnClickListener{
 
-    ImageView imageView;
+    ImageView imageView, menu;
     TextView pfname, pfspecs, pfoffice, pfnumber, pfemail;
     ImageButton edit;
 
@@ -46,8 +46,11 @@ public class fragment1 extends Fragment implements View.OnClickListener{
         pfnumber = getActivity().findViewById(R.id.number_f1_pf);
         pfemail = getActivity().findViewById(R.id.email_f1_pf);
 
+        menu = getActivity().findViewById(R.id.ib_menu_f1);
         edit = getActivity().findViewById(R.id.ib_edit_f1);
         edit.setOnClickListener(this);
+        menu.setOnClickListener(this);
+
     }
 
     @Override
@@ -57,6 +60,10 @@ public class fragment1 extends Fragment implements View.OnClickListener{
         if (id == R.id.ib_edit_f1) {
             Intent intent = new Intent(getActivity(), EditProfile.class);
             startActivity(intent);
+        }
+        if (id == R.id.ib_menu_f1) {
+            Menu menu = new Menu();
+            menu.show(getFragmentManager(),"bottomsheet");
         }
     }
 

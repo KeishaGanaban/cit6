@@ -153,7 +153,7 @@ public class LawyerProfileCreation extends AppCompatActivity {
                         profile.put("email", email);
                         profile.put("url", downlaodUri.toString());
                         profile.put("uid", currentUserId);
-                        profile.put("Privacy", "Public");
+                        profile.put("Private", "Public");
 
                         member.setName(name);
                         member.setSpecs(specs);

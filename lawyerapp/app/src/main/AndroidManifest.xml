@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Lawyerapp"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileViewHolder"
+            android:exported="false" />
+        <activity
+            android:name=".Messaging"
+            android:exported="false" />
+        <activity
             android:name=".PrivateAcc"
             android:exported="false" />
         <activity
